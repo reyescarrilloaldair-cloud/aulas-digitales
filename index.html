@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformadores Digitales ADM</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f9f9f9;color:#1a1a1a;padding:1rem}
+:root{
+  --adm-blue:#185FA5;--adm-blue-light:#E6F1FB;--adm-purple:#534AB7;--adm-purple-light:#EEEDFE;
+  --adm-teal:#0F6E56;--adm-teal-light:#E1F5EE;--adm-cyan:#1D9E75;
+  --color-background-primary:#ffffff;--color-background-secondary:#f3f3f3;
+  --color-text-primary:#1a1a1a;--color-text-secondary:#555;
+  --color-border-tertiary:rgba(0,0,0,0.12);--color-border-secondary:rgba(0,0,0,0.25);
+  --border-radius-md:8px;--border-radius-lg:12px;
+}
+.screen{display:none;padding:1.5rem 1rem;animation:fadeIn 0.3s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.hero{text-align:center;padding:2rem 1rem 1.5rem}
+.badge-top{display:inline-block;background:var(--adm-purple-light);color:var(--adm-purple);font-size:12px;padding:4px 14px;border-radius:20px;margin-bottom:1rem;border:0.5px solid #AFA9EC}
+.hero h1{font-size:22px;font-weight:500;color:var(--color-text-primary);line-height:1.3;margin-bottom:.5rem}
+.hero p{font-size:15px;color:var(--color-text-secondary);line-height:1.6;max-width:520px;margin:0 auto 1.5rem}
+.btn-primary{display:inline-block;background:var(--adm-purple);color:#fff;border:none;padding:10px 24px;border-radius:var(--border-radius-md);font-size:14px;font-weight:500;cursor:pointer;transition:opacity .2s}
+.btn-primary:hover{opacity:.85}
+.btn-outline{display:inline-block;background:transparent;color:var(--adm-purple);border:0.5px solid var(--adm-purple);padding:9px 20px;border-radius:var(--border-radius-md);font-size:14px;cursor:pointer;transition:background .2s}
+.btn-outline:hover{background:var(--adm-purple-light)}
+.btn-sm{padding:7px 16px;font-size:13px}
+.nav-tabs{display:flex;gap:4px;margin-bottom:1.5rem;border-bottom:0.5px solid var(--color-border-tertiary);padding-bottom:0}
+.tab{padding:8px 16px;font-size:13px;cursor:pointer;border-radius:var(--border-radius-md) var(--border-radius-md) 0 0;color:var(--color-text-secondary);border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab.active{color:var(--adm-purple);border-bottom:2px solid var(--adm-purple);font-weight:500}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:1.5rem}
+.mini-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.875rem 1rem}
+.mini-card .label{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px}
+.mini-card .value{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.section-title{font-size:16px;font-weight:500;color:var(--color-text-primary);margin-bottom:.75rem}
+.section-sub{font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem;line-height:1.6}
+.phase-row{display:flex;align-items:flex-start;gap:12px;padding:.75rem 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.phase-row:last-child{border-bottom:none}
+.phase-num{min-width:28px;height:28px;border-radius:50%;background:var(--adm-purple-light);color:var(--adm-purple);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;margin-top:2px}
+.phase-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.phase-desc{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+.role-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1.5rem}
+.role-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:.75rem;cursor:pointer;transition:border-color .2s,background .2s;text-align:center}
+.role-card:hover{border-color:var(--adm-purple);background:var(--adm-purple-light)}
+.role-card.selected{border-color:var(--adm-purple);background:var(--adm-purple-light)}
+.role-icon{font-size:24px;margin-bottom:6px;display:block}
+.role-name{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.role-detail{background:var(--adm-purple-light);border-radius:var(--border-radius-md);padding:1rem;margin-bottom:1rem;border:0.5px solid #AFA9EC;display:none}
+.role-detail.active{display:block}
+.tag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;margin:3px 3px 3px 0}
+.tag-blue{background:var(--adm-blue-light);color:#0C447C}
+.tag-teal{background:#E1F5EE;color:#085041}
+.tag-purple{background:var(--adm-purple-light);color:#3C3489}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.compare-card{border-radius:var(--border-radius-md);padding:.875rem 1rem}
+.compare-card.traditional{background:#F1EFE8;border:0.5px solid #B4B2A9}
+.compare-card.digital{background:var(--adm-purple-light);border:0.5px solid #AFA9EC}
+.compare-title{font-size:13px;font-weight:500;margin-bottom:.5rem}
+.compare-title.trad{color:#444441}
+.compare-title.dig{color:#3C3489}
+.compare-item{font-size:12px;color:var(--color-text-secondary);padding:3px 0;display:flex;align-items:center;gap:6px;line-height:1.4}
+.stat-big{text-align:center;padding:1rem;background:var(--adm-teal-light);border-radius:var(--border-radius-md);margin-bottom:1rem;border:0.5px solid #9FE1CB}
+.stat-big .num{font-size:28px;font-weight:500;color:#085041}
+.stat-big .stat-label{font-size:13px;color:#0F6E56}
+.levels-list{list-style:none}
+.level-item{display:flex;align-items:center;gap:12px;padding:.75rem 0;border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer}
+.level-item:last-child{border-bottom:none}
+.level-badge{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.lv1{background:#E6F1FB}.lv2{background:#E1F5EE}.lv3{background:#EEEDFE}.lv4{background:#FAEEDA}.lv5{background:#FCEBEB}
+.level-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.level-xp{font-size:12px;color:var(--color-text-secondary)}
+.mission-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem;margin-bottom:.75rem;cursor:pointer;transition:border-color .2s}
+.mission-card:hover{border-color:var(--adm-blue)}
+.mission-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.mission-title{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.xp-badge{font-size:11px;background:#E6F1FB;color:#0C447C;padding:3px 10px;border-radius:20px}
+.mission-desc{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+.progress-bar{height:6px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;border-radius:3px;background:var(--adm-purple);transition:width 0.5s ease}
+.rewards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:1.5rem}
+.reward-card{text-align:center;padding:.875rem .75rem;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary)}
+.reward-icon{font-size:22px;margin-bottom:6px;display:block}
+.reward-name{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+.reward-desc{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.quiz-wrap{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem}
+.quiz-q{font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:1rem;line-height:1.5}
+.quiz-opt{display:block;width:100%;text-align:left;padding:9px 14px;margin-bottom:6px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;color:var(--color-text-primary);transition:background .2s}
+.quiz-opt:hover{background:var(--adm-purple-light);border-color:var(--adm-purple)}
+.quiz-opt.correct{background:#EAF3DE;border-color:#639922;color:#27500A}
+.quiz-opt.wrong{background:#FCEBEB;border-color:#E24B4A;color:#791F1F}
+.feedback{padding:.75rem 1rem;border-radius:var(--border-radius-md);font-size:13px;margin-bottom:1rem;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:#EAF3DE;color:#27500A;border:0.5px solid #97C459}
+.feedback.fail{background:#FCEBEB;color:#791F1F;border:0.5px solid #F09595}
+.user-stats{display:flex;gap:10px;align-items:center;background:var(--color-background-secondary);padding:.75rem 1rem;border-radius:var(--border-radius-md);margin-bottom:1.5rem}
+.xp-total{font-size:13px;font-weight:500;color:var(--adm-purple)}
+.xp-bar{flex:1;height:8px;background:var(--color-border-tertiary);border-radius:4px;overflow:hidden}
+.xp-fill{height:100%;background:var(--adm-purple);border-radius:4px;transition:width .4s}
+.btn-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
+.info-box{background:var(--adm-blue-light);border:0.5px solid #B5D4F4;border-radius:var(--border-radius-md);padding:.875rem 1rem;margin-bottom:1rem;font-size:13px;color:#0C447C;line-height:1.5}
+.bottom-nav{display:flex;justify-content:center;gap:8px;padding:1rem 0;border-top:0.5px solid var(--color-border-tertiary);margin-top:1rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<div id="s-home" class="screen active">
+  <div class="hero">
+    <div class="badge-top"><i class="ti ti-device-laptop" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Misión Educativa Interactiva</div>
+    <h1>Transformadores Digitales ADM</h1>
+    <p>Únete a la misión de convertir una escuela tradicional en una escuela del futuro. Explora, aprende y demuestra tus competencias digitales.</p>
+    <div class="card-grid" style="max-width:480px;margin:0 auto 1.5rem">
+      <div class="mini-card"><div class="label">Etapas</div><div class="value">2</div></div>
+      <div class="mini-card"><div class="label">Niveles</div><div class="value">5</div></div>
+      <div class="mini-card"><div class="label">Misiones</div><div class="value">12</div></div>
+      <div class="mini-card"><div class="label">XP total</div><div class="value">2 400</div></div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary" onclick="goto('s-etapa1')"><i class="ti ti-rocket" style="font-size:14px;vertical-align:-1px;margin-right:6px"></i>Comenzar aventura</button>
+      <button class="btn-outline" onclick="goto('s-game')"><i class="ti ti-sword" style="font-size:14px;vertical-align:-1px;margin-right:6px"></i>Ir a misiones</button>
+    </div>
+  </div>
+</div>
+
+<div id="s-etapa1" class="screen">
+  <div class="badge-top"><i class="ti ti-book" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Etapa 1 — Experiencia informativa</div>
+  <h1 style="font-size:20px;font-weight:500;margin-bottom:.5rem;color:var(--color-text-primary)">¿Qué son las ADM?</h1>
+  <p class="section-sub">Las <strong>Aulas Digitales Multipropósito</strong> son espacios de aprendizaje equipados con tecnología interactiva para transformar la educación tradicional en experiencias dinámicas, colaborativas e innovadoras.</p>
+  <div class="nav-tabs">
+    <button class="tab active" onclick="showTab(this,'tab-ruta')">Ruta metodológica</button>
+    <button class="tab" onclick="showTab(this,'tab-roles')">Roles</button>
+    <button class="tab" onclick="showTab(this,'tab-porque')">¿Por qué tecnología?</button>
+  </div>
+  <div id="tab-ruta">
+    <div class="info-box"><i class="ti ti-info-circle" style="font-size:15px;vertical-align:-2px;margin-right:6px"></i>Las ADM se implementan en fases progresivas. Cada fase construye sobre la anterior para garantizar una integración exitosa y sostenible.</div>
+    <div class="card">
+      <div class="phase-row"><div class="phase-num">1</div><div><div class="phase-title">Planeación pedagógica</div><div class="phase-desc">Define objetivos de aprendizaje, selecciona herramientas digitales adecuadas y diseña experiencias alineadas al currículo.</div></div></div>
+      <div class="phase-row"><div class="phase-num">2</div><div><div class="phase-title">Integración tecnológica</div><div class="phase-desc">Conecta las herramientas digitales con los contenidos del aula. Dispositivos, plataformas y recursos en un ecosistema unificado.</div></div></div>
+      <div class="phase-row"><div class="phase-num">3</div><div><div class="phase-title">Aprendizaje colaborativo</div><div class="phase-desc">Fomenta el trabajo en equipo mediante proyectos digitales, debates en línea y co-creación de contenidos entre estudiantes.</div></div></div>
+      <div class="phase-row"><div class="phase-num">4</div><div><div class="phase-title">Uso de herramientas digitales</div><div class="phase-desc">Mapas mentales interactivos, simulaciones, videos educativos, plataformas de evaluación y recursos multimedia.</div></div></div>
+      <div class="phase-row"><div class="phase-num">5</div><div><div class="phase-title">Evaluación y seguimiento</div><div class="phase-desc">Mide el progreso con analíticas de aprendizaje, portfolios digitales y retroalimentación en tiempo real.</div></div></div>
+      <div class="phase-row"><div class="phase-num">6</div><div><div class="phase-title">Innovación educativa</div><div class="phase-desc">Itera y mejora continuamente. Experimenta con metodologías como gamificación, ABP y aula invertida.</div></div></div>
+    </div>
+    <div class="btn-nav">
+      <button class="btn-primary btn-sm" onclick="goto('s-quiz')"><i class="ti ti-tournament" style="font-size:13px;vertical-align:-1px;margin-right:5px"></i>Reto rápido (+50 XP)</button>
+      <button class="btn-outline btn-sm" onclick="goto('s-home')">Volver al inicio</button>
+    </div>
+  </div>
+  <div id="tab-roles" style="display:none">
+    <p class="section-sub">Cada miembro de la comunidad educativa tiene un rol clave. Elige el tuyo y descubre tus misiones especiales:</p>
+    <div class="role-grid">
+      <div class="role-card" onclick="selectRole(this,'r-docente')"><span class="role-icon">👩‍🏫</span><div class="role-name">Docente</div></div>
+      <div class="role-card" onclick="selectRole(this,'r-estudiante')"><span class="role-icon">🧑‍💻</span><div class="role-name">Estudiante</div></div>
+      <div class="role-card" onclick="selectRole(this,'r-directivo')"><span class="role-icon">🏫</span><div class="role-name">Directivo</div></div>
+      <div class="role-card" onclick="selectRole(this,'r-padre')"><span class="role-icon">👨‍👩‍👧</span><div class="role-name">Familia</div></div>
+      <div class="role-card" onclick="selectRole(this,'r-tech')"><span class="role-icon">🛠️</span><div class="role-name">Técnico TI</div></div>
+      <div class="role-card" onclick="selectRole(this,'r-comunidad')"><span class="role-icon">🌍</span><div class="role-name">Comunidad</div></div>
+    </div>
+    <div id="r-docente" class="role-detail">
+      <div class="section-title" style="color:#3C3489">Docente — Facilitador tecnológico</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:.75rem;line-height:1.6">El corazón del ADM. Diseña experiencias de aprendizaje innovadoras usando las herramientas digitales disponibles.</p>
+      <div><span class="tag tag-purple">Diseñar clases digitales</span><span class="tag tag-purple">Evaluar con analíticas</span><span class="tag tag-purple">Guiar proyectos</span><span class="tag tag-blue">Gestión del aula</span><span class="tag tag-teal">Colaboración inter-aulas</span></div>
+      <div style="margin-top:.75rem;font-size:13px;color:#3C3489;font-weight:500">Habilidad desbloqueada: <span style="background:#EEEDFE;padding:2px 8px;border-radius:12px">Arquitecto de experiencias</span></div>
+    </div>
+    <div id="r-estudiante" class="role-detail">
+      <div class="section-title" style="color:#3C3489">Estudiante — Explorador digital</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:.75rem;line-height:1.6">El protagonista del aprendizaje. Explora, crea, colabora y desarrolla competencias para el futuro.</p>
+      <div><span class="tag tag-teal">Creación de proyectos</span><span class="tag tag-blue">Aprendizaje autónomo</span><span class="tag tag-teal">Colaboración digital</span><span class="tag tag-purple">Pensamiento crítico</span></div>
+      <div style="margin-top:.75rem;font-size:13px;color:#3C3489;font-weight:500">Habilidad desbloqueada: <span style="background:#EEEDFE;padding:2px 8px;border-radius:12px">Creador de contenido</span></div>
+    </div>
+    <div id="r-directivo" class="role-detail">
+      <div class="section-title" style="color:#3C3489">Directivo — Líder de transformación</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:.75rem;line-height:1.6">Garantiza condiciones institucionales para que las ADM funcionen. Lidera la visión digital de la escuela.</p>
+      <div><span class="tag tag-blue">Política institucional</span><span class="tag tag-purple">Gestión de recursos</span><span class="tag tag-teal">Formación docente</span></div>
+      <div style="margin-top:.75rem;font-size:13px;color:#3C3489;font-weight:500">Habilidad desbloqueada: <span style="background:#EEEDFE;padding:2px 8px;border-radius:12px">Visionario institucional</span></div>
+    </div>
+    <div id="r-padre" class="role-detail">
+      <div class="section-title" style="color:#3C3489">Familia — Aliado del aprendizaje</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:.75rem;line-height:1.6">Acompaña desde casa el proceso digital del estudiante y forma parte activa de la comunidad ADM.</p>
+      <div><span class="tag tag-teal">Acompañamiento digital</span><span class="tag tag-blue">Participación en proyectos</span><span class="tag tag-purple">Alfabetización digital</span></div>
+      <div style="margin-top:.75rem;font-size:13px;color:#3C3489;font-weight:500">Habilidad desbloqueada: <span style="background:#EEEDFE;padding:2px 8px;border-radius:12px">Puente familia-escuela</span></div>
+    </div>
+    <div id="r-tech" class="role-detail">
+      <div class="section-title" style="color:#3C3489">Técnico TI — Guardián digital</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:.75rem;line-height:1.6">Mantiene la infraestructura tecnológica operativa y capacita a los usuarios en el uso correcto.</p>
+      <div><span class="tag tag-blue">Mantenimiento de equipos</span><span class="tag tag-purple">Soporte técnico</span><span class="tag tag-teal">Seguridad digital</span></div>
+      <div style="margin-top:.75rem;font-size:13px;color:#3C3489;font-weight:500">Habilidad desbloqueada: <span style="background:#EEEDFE;padding:2px 8px;border-radius:12px">Arquitecto de infraestructura</span></div>
+    </div>
+    <div id="r-comunidad" class="role-detail">
+      <div class="section-title" style="color:#3C3489">Comunidad — Embajador ADM</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:.75rem;line-height:1.6">Extiende el impacto del ADM más allá de las aulas, conectando la escuela con el entorno local.</p>
+      <div><span class="tag tag-teal">Difusión del proyecto</span><span class="tag tag-blue">Alianzas estratégicas</span><span class="tag tag-purple">Impacto social</span></div>
+      <div style="margin-top:.75rem;font-size:13px;color:#3C3489;font-weight:500">Habilidad desbloqueada: <span style="background:#EEEDFE;padding:2px 8px;border-radius:12px">Multiplicador de impacto</span></div>
+    </div>
+    <div class="btn-nav" style="margin-top:1rem">
+      <button class="btn-primary btn-sm" onclick="goto('s-game')"><i class="ti ti-rocket" style="font-size:13px;vertical-align:-1px;margin-right:5px"></i>Ir a misiones</button>
+    </div>
+  </div>
+  <div id="tab-porque" style="display:none">
+    <div class="card-grid" style="grid-template-columns:1fr 1fr">
+      <div class="stat-big"><div class="num">73%</div><div class="stat-label">Mayor retención con tecnología interactiva</div></div>
+      <div class="stat-big" style="background:#EEEDFE;border-color:#AFA9EC"><div class="num" style="color:#3C3489">2.5×</div><div class="stat-label" style="color:#534AB7">Más motivación en entornos digitales</div></div>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-card traditional">
+        <div class="compare-title trad"><i class="ti ti-school" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Aula tradicional</div>
+        <div class="compare-item"><i class="ti ti-minus" style="color:#888"></i>Aprendizaje pasivo</div>
+        <div class="compare-item"><i class="ti ti-minus" style="color:#888"></i>Un solo ritmo para todos</div>
+        <div class="compare-item"><i class="ti ti-minus" style="color:#888"></i>Recursos estáticos</div>
+        <div class="compare-item"><i class="ti ti-minus" style="color:#888"></i>Evaluación puntual</div>
+        <div class="compare-item"><i class="ti ti-minus" style="color:#888"></i>Acceso limitado al conocimiento</div>
+      </div>
+      <div class="compare-card digital">
+        <div class="compare-title dig"><i class="ti ti-device-laptop" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Aula digital ADM</div>
+        <div class="compare-item" style="color:#3C3489"><i class="ti ti-check" style="color:#534AB7"></i>Aprendizaje activo y colaborativo</div>
+        <div class="compare-item" style="color:#3C3489"><i class="ti ti-check" style="color:#534AB7"></i>Personalización del ritmo</div>
+        <div class="compare-item" style="color:#3C3489"><i class="ti ti-check" style="color:#534AB7"></i>Recursos multimedia e interactivos</div>
+        <div class="compare-item" style="color:#3C3489"><i class="ti ti-check" style="color:#534AB7"></i>Evaluación continua con analíticas</div>
+        <div class="compare-item" style="color:#3C3489"><i class="ti ti-check" style="color:#534AB7"></i>Conexión global al conocimiento</div>
+      </div>
+    </div>
+    <div class="card" style="border-color:#AFA9EC">
+      <div class="section-title">Competencias del siglo XXI que desarrolla un ADM</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
+        <span class="tag tag-purple">Pensamiento crítico</span>
+        <span class="tag tag-blue">Creatividad digital</span>
+        <span class="tag tag-teal">Colaboración global</span>
+        <span class="tag tag-purple">Comunicación efectiva</span>
+        <span class="tag tag-blue">Inclusión educativa</span>
+        <span class="tag tag-teal">Ciudadanía digital</span>
+        <span class="tag tag-purple">Preparación laboral</span>
+        <span class="tag tag-blue">Innovación continua</span>
+      </div>
+    </div>
+    <div class="btn-nav">
+      <button class="btn-primary btn-sm" onclick="goto('s-game')"><i class="ti ti-sword" style="font-size:13px;vertical-align:-1px;margin-right:5px"></i>Ir a la aventura gamificada</button>
+    </div>
+  </div>
+</div>
+
+<div id="s-game" class="screen">
+  <div class="badge-top" style="background:#FAEEDA;color:#633806;border-color:#FAC775"><i class="ti ti-sword" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Etapa 2 — Gamificación completa</div>
+  <div class="user-stats">
+    <i class="ti ti-star" style="font-size:18px;color:#BA7517"></i>
+    <span class="xp-total" id="xp-display">XP: 0 / 500</span>
+    <div class="xp-bar"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+    <span style="font-size:12px;color:var(--color-text-secondary)" id="level-display">Nivel 1</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="tab active" onclick="showTab(this,'tab-niveles')">Niveles</button>
+    <button class="tab" onclick="showTab(this,'tab-misiones')">Misiones</button>
+    <button class="tab" onclick="showTab(this,'tab-recompensas')">Recompensas</button>
+  </div>
+  <div id="tab-niveles">
+    <p class="section-sub">Tu camino de transformación digital. Completa misiones para avanzar entre niveles.</p>
+    <ul class="levels-list">
+      <li class="level-item">
+        <div class="level-badge lv1"><i class="ti ti-compass" style="font-size:18px;color:#185FA5"></i></div>
+        <div style="flex:1"><div class="level-name">Nivel 1 — Explorador digital</div><div class="level-xp">0 – 200 XP · Descubre qué son las ADM</div></div>
+        <div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:0%" id="pbar1"></div></div>
+      </li>
+      <li class="level-item">
+        <div class="level-badge lv2"><i class="ti ti-device-laptop" style="font-size:18px;color:#0F6E56"></i></div>
+        <div style="flex:1"><div class="level-name">Nivel 2 — Facilitador tecnológico</div><div class="level-xp">201 – 600 XP · Aplica herramientas digitales</div></div>
+        <div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:0%;background:#0F6E56" id="pbar2"></div></div>
+      </li>
+      <li class="level-item">
+        <div class="level-badge lv3"><i class="ti ti-bulb" style="font-size:18px;color:#534AB7"></i></div>
+        <div style="flex:1"><div class="level-name">Nivel 3 — Innovador educativo</div><div class="level-xp">601 – 1 100 XP · Diseña experiencias nuevas</div></div>
+        <div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:0%;background:#534AB7" id="pbar3"></div></div>
+      </li>
+      <li class="level-item">
+        <div class="level-badge lv4"><i class="ti ti-crown" style="font-size:18px;color:#BA7517"></i></div>
+        <div style="flex:1"><div class="level-name">Nivel 4 — Líder ADM</div><div class="level-xp">1 101 – 1 800 XP · Lidera la transformación</div></div>
+        <div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:0%;background:#BA7517" id="pbar4"></div></div>
+      </li>
+      <li class="level-item">
+        <div class="level-badge lv5"><i class="ti ti-trophy" style="font-size:18px;color:#A32D2D"></i></div>
+        <div style="flex:1"><div class="level-name">Nivel 5 — Maestro de transformación digital</div><div class="level-xp">1 801 – 2 400 XP · Impacta tu institución</div></div>
+        <div class="progress-bar" style="width:80px"><div class="progress-fill" style="width:0%;background:#A32D2D" id="pbar5"></div></div>
+      </li>
+    </ul>
+  </div>
+  <div id="tab-misiones" style="display:none">
+    <p class="section-sub">Completa misiones para ganar XP y avanzar de nivel. Haz clic en una misión para iniciarla.</p>
+    <div class="mission-card" onclick="startMission('m1')">
+      <div class="mission-header"><span class="mission-title"><i class="ti ti-compass" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Misión 1: Primer contacto ADM</span><span class="xp-badge">+100 XP</span></div>
+      <div class="mission-desc">Responde el quiz inicial sobre qué son las ADM y sus componentes básicos.</div>
+      <div class="progress-bar"><div class="progress-fill" id="m1-bar" style="width:0%"></div></div>
+    </div>
+    <div class="mission-card" onclick="startMission('m2')">
+      <div class="mission-header"><span class="mission-title"><i class="ti ti-users" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Misión 2: Elige tu rol</span><span class="xp-badge">+80 XP</span></div>
+      <div class="mission-desc">Selecciona un rol en la comunidad ADM y desbloquea tus habilidades especiales.</div>
+      <div class="progress-bar"><div class="progress-fill" id="m2-bar" style="width:0%;background:#0F6E56"></div></div>
+    </div>
+    <div class="mission-card" onclick="startMission('m3')">
+      <div class="mission-header"><span class="mission-title"><i class="ti ti-device-floppy" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Misión 3: Diseña una clase digital</span><span class="xp-badge">+150 XP</span></div>
+      <div class="mission-desc">Crea un plan de clase usando herramientas digitales del ADM. Desafío colaborativo.</div>
+      <div class="progress-bar"><div class="progress-fill" id="m3-bar" style="width:0%;background:#534AB7"></div></div>
+    </div>
+    <div class="mission-card" onclick="startMission('m4')">
+      <div class="mission-header"><span class="mission-title"><i class="ti ti-puzzle" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Misión 4: Escape Room educativo</span><span class="xp-badge">+200 XP</span></div>
+      <div class="mission-desc">Resuelve el reto de transformación digital: conecta herramientas con objetivos pedagógicos.</div>
+      <div class="progress-bar"><div class="progress-fill" id="m4-bar" style="width:0%;background:#BA7517"></div></div>
+    </div>
+    <div class="mission-card" onclick="startMission('m5')">
+      <div class="mission-header"><span class="mission-title"><i class="ti ti-planet" style="font-size:14px;vertical-align:-1px;margin-right:5px"></i>Misión 5: Proyecto de innovación</span><span class="xp-badge">+250 XP</span></div>
+      <div class="mission-desc">Diseña un proyecto digital que resuelva un problema real de tu institución educativa.</div>
+      <div class="progress-bar"><div class="progress-fill" id="m5-bar" style="width:0%;background:#A32D2D"></div></div>
+    </div>
+    <div id="mission-feedback" class="feedback"></div>
+  </div>
+  <div id="tab-recompensas" style="display:none">
+    <p class="section-sub">Insignias, medallas y habilidades que desbloqueas al completar misiones y niveles.</p>
+    <div class="rewards-grid">
+      <div class="reward-card"><span class="reward-icon">🔭</span><div class="reward-name">Primera exploración</div><div class="reward-desc">Completa la Misión 1</div></div>
+      <div class="reward-card"><span class="reward-icon">🎭</span><div class="reward-name">Rol desbloqueado</div><div class="reward-desc">Elige tu rol ADM</div></div>
+      <div class="reward-card"><span class="reward-icon">💡</span><div class="reward-name">Diseñador digital</div><div class="reward-desc">Crea tu primera clase</div></div>
+      <div class="reward-card"><span class="reward-icon">🔐</span><div class="reward-name">Escapista educativo</div><div class="reward-desc">Supera el escape room</div></div>
+      <div class="reward-card"><span class="reward-icon">🚀</span><div class="reward-name">Innovador</div><div class="reward-desc">Presenta un proyecto ADM</div></div>
+      <div class="reward-card"><span class="reward-icon">👑</span><div class="reward-name">Líder ADM</div><div class="reward-desc">Alcanza nivel 4</div></div>
+      <div class="reward-card"><span class="reward-icon">🏆</span><div class="reward-name">Maestro digital</div><div class="reward-desc">Completa todas las misiones</div></div>
+      <div class="reward-card"><span class="reward-icon">🤝</span><div class="reward-name">Colaborador</div><div class="reward-desc">Recompensa de equipo</div></div>
+    </div>
+    <div class="card" style="border-color:#AFA9EC;background:var(--adm-purple-light)">
+      <div class="section-title" style="color:#3C3489">Sistema de XP y progreso</div>
+      <div style="font-size:13px;color:#534AB7;line-height:1.7">
+        Cada misión completada suma puntos de experiencia (XP). Al alcanzar los umbrales de cada nivel, desbloqueas nuevas misiones, insignias y habilidades. Los desafíos colaborativos otorgan puntos de bonificación para todo el equipo.
+      </div>
+    </div>
+    <div class="btn-nav">
+      <button class="btn-primary btn-sm" onclick="goto('s-quiz')"><i class="ti ti-tournament" style="font-size:13px;vertical-align:-1px;margin-right:5px"></i>Jugar quiz y ganar XP</button>
+    </div>
+  </div>
+</div>
+
+<div id="s-quiz" class="screen">
+  <div class="badge-top" style="background:#E1F5EE;color:#085041;border-color:#9FE1CB"><i class="ti ti-tournament" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Reto rápido ADM</div>
+  <h1 style="font-size:20px;font-weight:500;margin-bottom:.5rem;color:var(--color-text-primary)">Quiz: ¿Qué sabes sobre las ADM?</h1>
+  <p class="section-sub" style="margin-bottom:1.25rem">Responde correctamente para ganar XP y avanzar en tu misión.</p>
+  <div id="quiz-container"></div>
+  <div id="quiz-feedback" class="feedback"></div>
+  <div id="quiz-score" style="display:none" class="card">
+    <div class="section-title" style="text-align:center">Resultado</div>
+    <div style="font-size:28px;font-weight:500;color:var(--adm-purple);margin:.5rem 0;text-align:center" id="score-val"></div>
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem;text-align:center" id="score-msg"></div>
+    <div class="btn-nav" style="justify-content:center">
+      <button class="btn-primary btn-sm" onclick="restartQuiz()">Intentar de nuevo</button>
+      <button class="btn-outline btn-sm" onclick="goto('s-game')">Ver misiones</button>
+    </div>
+  </div>
+  <div class="btn-nav" style="margin-top:.5rem">
+    <button class="btn-outline btn-sm" onclick="goto('s-etapa1')">Volver a Etapa 1</button>
+    <button class="btn-outline btn-sm" onclick="goto('s-game')">Ir a misiones</button>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <button class="btn-outline btn-sm" onclick="goto('s-home')" style="font-size:12px"><i class="ti ti-home" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Inicio</button>
+  <button class="btn-outline btn-sm" onclick="goto('s-etapa1')" style="font-size:12px"><i class="ti ti-book" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Etapa 1</button>
+  <button class="btn-outline btn-sm" onclick="goto('s-game')" style="font-size:12px"><i class="ti ti-sword" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Misiones</button>
+  <button class="btn-outline btn-sm" onclick="goto('s-quiz')" style="font-size:12px"><i class="ti ti-tournament" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Quiz</button>
+</div>
+
+<script>
+let xp = 0;
+const xpMax = 500;
+const quizData = [
+  {q:"¿Qué significa ADM?",opts:["Aula Digital Multipropósito","Ambiente de Desarrollo Multimedia","Asistente Docente Móvil","Área de Datos Masivos"],correct:0},
+  {q:"¿Cuál es la primera fase de implementación de un ADM?",opts:["Evaluación y seguimiento","Planeación pedagógica","Integración tecnológica","Innovación educativa"],correct:1},
+  {q:"¿Qué competencia del siglo XXI potencia principalmente el aprendizaje colaborativo en ADM?",opts:["Memorización de datos","Trabajo en equipo y comunicación","Reproducción de contenidos","Evaluación estandarizada"],correct:1},
+  {q:"¿Cuál es el beneficio más destacado de las ADM frente al aula tradicional?",opts:["Mayor cantidad de libros físicos","Aprendizaje pasivo","Personalización del ritmo y acceso a recursos interactivos","Eliminación total del docente"],correct:2},
+  {q:"¿Qué rol desbloquea la habilidad 'Arquitecto de infraestructura' en las ADM?",opts:["Estudiante","Directivo","Técnico TI","Familia"],correct:2}
+];
+let qi=0, score=0;
+
+function goto(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if(id==='s-quiz') renderQuiz();
+  window.scrollTo(0,0);
+}
+
+function showTab(btn, tabId){
+  btn.closest('.screen').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const allTabs = btn.closest('.screen').querySelectorAll('[id^="tab-"]');
+  allTabs.forEach(t=>t.style.display='none');
+  document.getElementById(tabId).style.display='block';
+}
+
+function selectRole(card, detailId){
+  document.querySelectorAll('.role-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+  document.querySelectorAll('.role-detail').forEach(d=>d.classList.remove('active'));
+  document.getElementById(detailId).classList.add('active');
+  addXP(80);
+  const fb=document.getElementById('mission-feedback');
+  if(fb){fb.textContent='¡Rol desbloqueado! +80 XP';fb.className='feedback ok show';setTimeout(()=>fb.classList.remove('show'),2500);}
+}
+
+function addXP(amount){
+  xp = Math.min(xp + amount, xpMax);
+  const pct = Math.round((xp/xpMax)*100);
+  const el=document.getElementById('xp-fill');
+  const disp=document.getElementById('xp-display');
+  const lvl=document.getElementById('level-display');
+  if(el) el.style.width=pct+'%';
+  if(disp) disp.textContent='XP: '+xp+' / '+xpMax;
+  const levels=['Nivel 1','Nivel 2','Nivel 3','Nivel 4','Nivel 5'];
+  const thresholds=[0,200,600,1100,1800];
+  let lv=0;
+  for(let i=0;i<thresholds.length;i++){if(xp>=thresholds[i])lv=i;}
+  if(lvl) lvl.textContent=levels[lv];
+}
+
+function startMission(id){
+  const xpMap={m1:100,m2:80,m3:150,m4:200,m5:250};
+  const bar=document.getElementById(id+'-bar');
+  if(bar) bar.style.width='100%';
+  addXP(xpMap[id]||100);
+  const fb=document.getElementById('mission-feedback');
+  if(fb){fb.textContent='¡Misión iniciada! +'+xpMap[id]+' XP ganados';fb.className='feedback ok show';setTimeout(()=>fb.classList.remove('show'),2500);}
+}
+
+function renderQuiz(){
+  const c=document.getElementById('quiz-container');
+  const s=document.getElementById('quiz-score');
+  const fb=document.getElementById('quiz-feedback');
+  if(!c) return;
+  if(qi>=quizData.length){
+    c.innerHTML='';
+    if(s){
+      s.style.display='block';
+      document.getElementById('score-val').textContent=score+' / '+quizData.length+' correctas';
+      const msgs=['Sigue explorando las ADM','¡Buen comienzo digital!','¡Muy bien! Vas por buen camino','¡Excelente! Eres un líder ADM'];
+      document.getElementById('score-msg').textContent=msgs[Math.min(score,3)];
+      addXP(score*50);
+    }
+    return;
+  }
+  if(s) s.style.display='none';
+  const d=quizData[qi];
+  c.innerHTML=`<div class="quiz-wrap">
+    <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.5rem">Pregunta ${qi+1} de ${quizData.length}</div>
+    <div class="progress-bar" style="margin-bottom:1rem"><div class="progress-fill" style="width:${Math.round((qi/quizData.length)*100)}%"></div></div>
+    <div class="quiz-q">${d.q}</div>
+    ${d.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQuiz(this,${i},${d.correct})">${o}</button>`).join('')}
+  </div>`;
+}
+
+function answerQuiz(btn, chosen, correct){
+  const opts=btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.disabled=true);
+  const fb=document.getElementById('quiz-feedback');
+  if(chosen===correct){
+    btn.classList.add('correct');
+    score++;
+    if(fb){fb.textContent='¡Correcto! +50 XP';fb.className='feedback ok show';}
+  } else {
+    btn.classList.add('wrong');
+    opts[correct].classList.add('correct');
+    if(fb){fb.textContent='Casi. La respuesta correcta está resaltada.';fb.className='feedback fail show';}
+  }
+  setTimeout(()=>{
+    if(fb) fb.classList.remove('show');
+    qi++;
+    renderQuiz();
+  },1800);
+}
+
+function restartQuiz(){
+  qi=0; score=0;
+  const s=document.getElementById('quiz-score');
+  if(s) s.style.display='none';
+  renderQuiz();
+}
+</script>
+</body>
+</html>
