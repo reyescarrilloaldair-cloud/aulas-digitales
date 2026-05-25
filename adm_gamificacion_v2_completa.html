@@ -1,0 +1,187 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pu:#534AB7;--pul:#EEEDFE;--pu8:#3C3489;--te:#0F6E56;--tel:#E1F5EE;--bl:#185FA5;--bll:#E6F1FB;--am:#BA7517;--aml:#FAEEDA;--re:#A32D2D;--rel:#FCEBEB;--gr:#639922;--grl:#EAF3DE}
+.scr{display:none;padding:1.25rem 1rem;animation:fi .3s ease}
+.scr.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.badge{display:inline-block;font-size:11px;padding:3px 12px;border-radius:20px;margin-bottom:.75rem}
+.bp{background:var(--pul);color:var(--pu8);border:0.5px solid #AFA9EC}
+.bt{background:var(--tel);color:#085041;border:0.5px solid #9FE1CB}
+.ba{background:var(--aml);color:#633806;border:0.5px solid #FAC775}
+.br{background:var(--rel);color:#791F1F;border:0.5px solid #F09595}
+.bg{background:var(--grl);color:#27500A;border:0.5px solid #97C459}
+h1{font-size:20px;font-weight:500;color:var(--color-text-primary);margin-bottom:.4rem}
+.sub{font-size:13px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:1rem}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:1rem 1.25rem;margin-bottom:.875rem}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:1.25rem}
+.mc{background:var(--color-background-secondary);border-radius:8px;padding:.75rem 1rem}
+.mc .lb{font-size:11px;color:var(--color-text-secondary);margin-bottom:3px}
+.mc .vl{font-size:17px;font-weight:500;color:var(--color-text-primary)}
+.tabs{display:flex;gap:3px;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.25rem}
+.tb{padding:7px 14px;font-size:12px;cursor:pointer;border:none;background:none;color:var(--color-text-secondary);border-bottom:2px solid transparent;margin-bottom:-1px;border-radius:8px 8px 0 0}
+.tb.on{color:var(--pu);border-bottom:2px solid var(--pu);font-weight:500}
+.bp1{display:inline-block;background:var(--pu);color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer}
+.bp1:hover{opacity:.85}
+.bo{display:inline-block;background:transparent;color:var(--pu);border:0.5px solid var(--pu);padding:8px 18px;border-radius:8px;font-size:13px;cursor:pointer}
+.bo:hover{background:var(--pul)}
+.bsm{padding:6px 14px;font-size:12px}
+.bnav{display:flex;gap:8px;flex-wrap:wrap;margin-top:.875rem}
+.ph{display:flex;gap:10px;align-items:flex-start;padding:.625rem 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.ph:last-child{border-bottom:none}
+.phn{min-width:26px;height:26px;border-radius:50%;background:var(--pul);color:var(--pu);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500}
+.pht{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.phd{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;margin:2px}
+.tpu{background:var(--pul);color:var(--pu8)}
+.tbl{background:var(--bll);color:#0C447C}
+.tte{background:var(--tel);color:#085041}
+.ust{display:flex;gap:10px;align-items:center;background:var(--color-background-secondary);padding:.625rem 1rem;border-radius:8px;margin-bottom:1.25rem}
+.xpb{flex:1;height:7px;background:var(--color-border-tertiary);border-radius:4px;overflow:hidden}
+.xpf{height:100%;background:var(--pu);border-radius:4px;transition:width .4s}
+.lvl{display:flex;align-items:center;gap:10px;padding:.625rem 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.lvl:last-child{border-bottom:none}
+.lbg{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ln{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.lx{font-size:11px;color:var(--color-text-secondary)}
+.pb{height:5px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden;margin-top:6px}
+.pf{height:100%;border-radius:3px;background:var(--pu);transition:width .5s}
+.mc2{border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:.875rem;margin-bottom:.75rem;cursor:pointer;transition:border-color .2s}
+.mc2:hover{border-color:var(--bl)}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.mt{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.xpbg{font-size:11px;background:var(--bll);color:#0C447C;padding:2px 9px;border-radius:20px}
+.md{font-size:12px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:6px}
+.mstep{font-size:11px;color:var(--pu);margin-top:4px}
+.rw{text-align:center;padding:.75rem;border:0.5px solid var(--color-border-tertiary);border-radius:8px;background:var(--color-background-primary)}
+.ri{font-size:20px;margin-bottom:4px;display:block}
+.rn{font-size:12px;font-weight:500;color:var(--color-text-primary)}
+.rd{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.rw.unlocked{border-color:var(--gr);background:var(--grl)}
+.fb{padding:.625rem 1rem;border-radius:8px;font-size:12px;margin-bottom:.875rem;display:none}
+.fb.on{display:block}
+.fbok{background:var(--grl);color:#27500A;border:0.5px solid #97C459}
+.fbfl{background:var(--rel);color:#791F1F;border:0.5px solid #F09595}
+.qwrap{border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:1.125rem;margin-bottom:.875rem}
+.qq{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:.875rem;line-height:1.5}
+.qo{display:block;width:100%;text-align:left;padding:8px 13px;margin-bottom:5px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;font-size:12px;cursor:pointer;color:var(--color-text-primary)}
+.qo:hover{background:var(--pul);border-color:var(--pu)}
+.qo.ok{background:var(--grl);border-color:var(--gr);color:#27500A}
+.qo.ng{background:var(--rel);border-color:var(--re);color:#791F1F}
+.qo:disabled{cursor:default}
+.esc-opt{display:block;width:100%;text-align:left;padding:8px 13px;margin-bottom:5px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:8px;font-size:12px;cursor:pointer;color:var(--color-text-primary)}
+.esc-opt:hover{background:var(--bll);border-color:var(--bl)}
+.esc-opt.ok{background:var(--grl);border-color:var(--gr);color:#27500A}
+.esc-opt.ng{background:var(--rel);border-color:var(--re);color:#791F1F}
+.drag-zone{border:0.5px dashed var(--color-border-tertiary);border-radius:8px;padding:.75rem;min-height:48px;margin-bottom:6px;background:var(--color-background-secondary)}
+.drag-item{display:inline-block;background:var(--pul);color:var(--pu8);border:0.5px solid #AFA9EC;border-radius:20px;padding:4px 12px;font-size:12px;margin:3px;cursor:grab}
+.stat2{text-align:center;padding:.875rem;background:var(--tel);border-radius:8px;border:0.5px solid #9FE1CB;margin-bottom:.875rem}
+.stat2 .sn{font-size:26px;font-weight:500;color:#085041}
+.stat2 .sl{font-size:12px;color:var(--te)}
+.sc-box{text-align:center;padding:1.25rem;background:var(--pul);border-radius:12px;border:0.5px solid #AFA9EC;margin-bottom:1rem}
+.sc-num{font-size:32px;font-weight:500;color:var(--pu)}
+.sc-msg{font-size:13px;color:var(--pu8);margin-top:4px}
+.info-b{background:var(--bll);border:0.5px solid #B5D4F4;border-radius:8px;padding:.75rem 1rem;margin-bottom:.875rem;font-size:12px;color:#0C447C;line-height:1.5}
+.bnav2{display:flex;justify-content:center;gap:8px;padding:.875rem 0;border-top:0.5px solid var(--color-border-tertiary);margin-top:.875rem;flex-wrap:wrap}
+.step-ind{font-size:11px;color:var(--color-text-secondary);margin-bottom:.5rem}
+.mis-sec{display:none}
+.mis-sec.on{display:block}
+</style>
+
+<h2 class="sr-only">Transformadores Digitales ADM — experiencia gamificada educativa ampliada con misiones, quiz y actividades interactivas</h2>
+
+<div id="s-home" class="scr on">
+  <div style="text-align:center;padding:1.75rem 1rem 1.25rem">
+    <div class="badge bp"><i class="ti ti-device-laptop" aria-hidden="true" style="font-size:12px;vertical-align:-1px;margin-right:4px"></i>Misión educativa interactiva v2</div>
+    <h1 style="font-size:22px">Transformadores Digitales ADM</h1>
+    <p class="sub" style="max-width:500px;margin:0 auto 1.25rem">Convierte una escuela tradicional en una escuela del futuro. Más misiones, más retos, más aprendizaje.</p>
+    <div class="mg" style="max-width:480px;margin:0 auto 1.25rem">
+      <div class="mc"><div class="lb">Etapas</div><div class="vl">2</div></div>
+      <div class="mc"><div class="lb">Niveles</div><div class="vl">5</div></div>
+      <div class="mc"><div class="lb">Misiones</div><div class="vl">8</div></div>
+      <div class="mc"><div class="lb">Preguntas quiz</div><div class="vl">25</div></div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="bp1" onclick="go('s-e1')"><i class="ti ti-rocket" aria-hidden="true" style="font-size:13px;vertical-align:-1px;margin-right:5px"></i>Comenzar aventura</button>
+      <button class="bo" onclick="go('s-mis')"><i class="ti ti-sword" aria-hidden="true" style="font-size:13px;vertical-align:-1px;margin-right:5px"></i>Ir a misiones</button>
+      <button class="bo" onclick="go('s-quiz')"><i class="ti ti-tournament" aria-hidden="true" style="font-size:13px;vertical-align:-1px;margin-right:5px"></i>Jugar quiz</button>
+    </div>
+  </div>
+</div>
+
+<div id="s-e1" class="scr">
+  <div class="badge bp"><i class="ti ti-book" aria-hidden="true" style="font-size:12px;vertical-align:-1px;margin-right:4px"></i>Etapa 1 — Experiencia informativa</div>
+  <h1>¿Qué son las ADM?</h1>
+  <p class="sub">Las <strong>Aulas Digitales Multipropósito</strong> son espacios equipados con tecnología interactiva, conectividad, dispositivos y recursos digitales que transforman la enseñanza tradicional en experiencias activas, colaborativas e innovadoras. No son solo laboratorios de computación: son ecosistemas de aprendizaje del siglo XXI.</p>
+  <div class="tabs">
+    <button class="tb on" onclick="stab(this,'t-ruta')">Ruta metodológica</button>
+    <button class="tb" onclick="stab(this,'t-roles')">Roles</button>
+    <button class="tb" onclick="stab(this,'t-tec')">¿Por qué tecnología?</button>
+    <button class="tb" onclick="stab(this,'t-herr')">Herramientas</button>
+  </div>
+  <div id="t-ruta">
+    <div class="info-b"><i class="ti ti-info-circle" aria-hidden="true" style="font-size:14px;vertical-align:-2px;margin-right:5px"></i>Las ADM se implementan en fases. Cada etapa construye competencias digitales sostenibles en la institución.</div>
+    <div class="card">
+      <div class="ph"><div class="phn">1</div><div><div class="pht">Diagnóstico institucional</div><div class="phd">Evalúa la infraestructura tecnológica disponible, las competencias digitales del equipo docente y las necesidades pedagógicas prioritarias antes de implementar.</div></div></div>
+      <div class="ph"><div class="phn">2</div><div><div class="pht">Planeación pedagógica</div><div class="phd">Define objetivos de aprendizaje, selecciona herramientas digitales adecuadas al nivel y diseña experiencias alineadas al currículo nacional e institucional.</div></div></div>
+      <div class="ph"><div class="phn">3</div><div><div class="phn" style="display:none"></div><div class="pht">Formación docente</div><div class="phd">Capacita a los docentes en el uso pedagógico de las herramientas digitales. No basta con saber usar la tecnología: hay que integrarla con intención educativa clara.</div></div></div>
+      <div class="ph"><div class="phn">4</div><div><div class="pht">Integración tecnológica</div><div class="phd">Conecta dispositivos, plataformas y recursos en un ecosistema unificado. El docente diseña rutas de aprendizaje que combinan lo presencial con lo digital de forma fluida.</div></div></div>
+      <div class="ph"><div class="phn">5</div><div><div class="pht">Aprendizaje colaborativo</div><div class="phd">Fomenta el trabajo en equipo mediante proyectos digitales, debates en línea, co-creación de contenidos y retos grupales que desarrollen habilidades sociales y comunicativas.</div></div></div>
+      <div class="ph"><div class="phn">6</div><div><div class="pht">Evaluación y seguimiento</div><div class="phd">Mide el progreso con analíticas de aprendizaje, portfolios digitales, rúbricas y retroalimentación en tiempo real. Ajusta la estrategia pedagógica según los datos.</div></div></div>
+      <div class="ph"><div class="phn">7</div><div><div class="pht">Innovación y mejora continua</div><div class="phd">Itera y experimenta. Incorpora gamificación, aula invertida, aprendizaje basado en proyectos y otras metodologías activas. Comparte buenas prácticas con la comunidad docente.</div></div></div>
+    </div>
+    <div class="bnav"><button class="bp1 bsm" onclick="go('s-mis')">Ir a misiones</button><button class="bo bsm" onclick="go('s-home')">Inicio</button></div>
+  </div>
+  <div id="t-roles" style="display:none">
+    <p class="sub">Selecciona un rol para ver sus misiones, responsabilidades y habilidades especiales:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:1rem">
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:.75rem;cursor:pointer;text-align:center" onclick="selrol(this,'rd1')" class="rc"><span style="font-size:22px;display:block;margin-bottom:5px">👩‍🏫</span><div style="font-size:12px;font-weight:500;color:var(--color-text-primary)">Docente</div></div>
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:.75rem;cursor:pointer;text-align:center" onclick="selrol(this,'rd2')" class="rc"><span style="font-size:22px;display:block;margin-bottom:5px">🧑‍💻</span><div style="font-size:12px;font-weight:500;color:var(--color-text-primary)">Estudiante</div></div>
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:.75rem;cursor:pointer;text-align:center" onclick="selrol(this,'rd3')" class="rc"><span style="font-size:22px;display:block;margin-bottom:5px">🏫</span><div style="font-size:12px;font-weight:500;color:var(--color-text-primary)">Directivo</div></div>
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:.75rem;cursor:pointer;text-align:center" onclick="selrol(this,'rd4')" class="rc"><span style="font-size:22px;display:block;margin-bottom:5px">👨‍👩‍👧</span><div style="font-size:12px;font-weight:500;color:var(--color-text-primary)">Familia</div></div>
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:.75rem;cursor:pointer;text-align:center" onclick="selrol(this,'rd5')" class="rc"><span style="font-size:22px;display:block;margin-bottom:5px">🛠️</span><div style="font-size:12px;font-weight:500;color:var(--color-text-primary)">Técnico TI</div></div>
+      <div style="border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:.75rem;cursor:pointer;text-align:center" onclick="selrol(this,'rd6')" class="rc"><span style="font-size:22px;display:block;margin-bottom:5px">🌍</span><div style="font-size:12px;font-weight:500;color:var(--color-text-primary)">Comunidad</div></div>
+    </div>
+    <div id="rd1" style="display:none;background:var(--pul);border-radius:8px;padding:1rem;border:0.5px solid #AFA9EC;margin-bottom:1rem">
+      <div style="font-size:14px;font-weight:500;color:var(--pu8);margin-bottom:.5rem">Docente — Facilitador tecnológico</div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.625rem;line-height:1.6">Diseña y ejecuta experiencias de aprendizaje innovadoras integrando las herramientas del ADM con intención pedagógica clara. Es el eje de la transformación en el aula.</p>
+      <div style="margin-bottom:.5rem"><strong style="font-size:11px;color:var(--pu8)">Misiones:</strong><br><span class="tag tpu">Diseñar 3 clases digitales</span><span class="tag tpu">Integrar una herramienta nueva</span><span class="tag tpu">Evaluar con analíticas</span></div>
+      <div><strong style="font-size:11px;color:var(--pu8)">Habilidad desbloqueada:</strong> <span style="background:#fff;color:var(--pu);padding:2px 9px;border-radius:12px;font-size:11px;border:0.5px solid #AFA9EC">Arquitecto de experiencias ✦</span></div>
+    </div>
+    <div id="rd2" style="display:none;background:var(--tel);border-radius:8px;padding:1rem;border:0.5px solid #9FE1CB;margin-bottom:1rem">
+      <div style="font-size:14px;font-weight:500;color:#085041;margin-bottom:.5rem">Estudiante — Explorador digital</div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.625rem;line-height:1.6">Protagonista del aprendizaje. Explora, crea proyectos digitales, colabora con compañeros y desarrolla competencias para el futuro laboral desde el aula ADM.</p>
+      <div style="margin-bottom:.5rem"><strong style="font-size:11px;color:#085041">Misiones:</strong><br><span class="tag tte">Crear un proyecto digital</span><span class="tag tte">Colaborar en equipo</span><span class="tag tte">Presentar un producto</span></div>
+      <div><strong style="font-size:11px;color:#085041">Habilidad desbloqueada:</strong> <span style="background:#fff;color:var(--te);padding:2px 9px;border-radius:12px;font-size:11px;border:0.5px solid #9FE1CB">Creador de contenido ✦</span></div>
+    </div>
+    <div id="rd3" style="display:none;background:var(--bll);border-radius:8px;padding:1rem;border:0.5px solid #B5D4F4;margin-bottom:1rem">
+      <div style="font-size:14px;font-weight:500;color:#0C447C;margin-bottom:.5rem">Directivo — Líder de transformación</div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.625rem;line-height:1.6">Garantiza condiciones institucionales óptimas para el funcionamiento del ADM: presupuesto, política TI, formación docente continua y alianzas estratégicas con el sector tecnológico.</p>
+      <div style="margin-bottom:.5rem"><strong style="font-size:11px;color:#0C447C">Misiones:</strong><br><span class="tag tbl">Aprobar plan de acción</span><span class="tag tbl">Gestionar recursos TI</span><span class="tag tbl">Liderar comunidad de práctica</span></div>
+      <div><strong style="font-size:11px;color:#0C447C">Habilidad desbloqueada:</strong> <span style="background:#fff;color:var(--bl);padding:2px 9px;border-radius:12px;font-size:11px;border:0.5px solid #B5D4F4">Visionario institucional ✦</span></div>
+    </div>
+    <div id="rd4" style="display:none;background:#FAEEDA;border-radius:8px;padding:1rem;border:0.5px solid #FAC775;margin-bottom:1rem">
+      <div style="font-size:14px;font-weight:500;color:#633806;margin-bottom:.5rem">Familia — Aliado del aprendizaje</div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.625rem;line-height:1.6">Acompaña y apoya el proceso de aprendizaje digital desde casa. Participa activamente en proyectos escolares, se alfabetiza digitalmente y fortalece el vínculo familia-escuela.</p>
+      <div style="margin-bottom:.5rem"><strong style="font-size:11px;color:#633806">Misiones:</strong><br><span style="display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;margin:2px;background:var(--aml);color:#633806">Revisar tareas digitales</span><span style="display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;margin:2px;background:var(--aml);color:#633806">Asistir a talleres</span></div>
+      <div><strong style="font-size:11px;color:#633806">Habilidad desbloqueada:</strong> <span style="background:#fff;color:var(--am);padding:2px 9px;border-radius:12px;font-size:11px;border:0.5px solid #FAC775">Puente familia-escuela ✦</span></div>
+    </div>
+    <div id="rd5" style="display:none;background:var(--pul);border-radius:8px;padding:1rem;border:0.5px solid #AFA9EC;margin-bottom:1rem">
+      <div style="font-size:14px;font-weight:500;color:var(--pu8);margin-bottom:.5rem">Técnico TI — Guardián digital</div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.625rem;line-height:1.6">Mantiene operativa la infraestructura tecnológica del ADM: redes, dispositivos, servidores y plataformas. Capacita a usuarios y garantiza la seguridad y disponibilidad del sistema.</p>
+      <div style="margin-bottom:.5rem"><strong style="font-size:11px;color:var(--pu8)">Misiones:</strong><br><span class="tag tpu">Auditoría de equipos</span><span class="tag tpu">Seguridad de red</span><span class="tag tpu">Soporte a docentes</span></div>
+      <div><strong style="font-size:11px;color:var(--pu8)">Habilidad desbloqueada:</strong> <span style="background:#fff;color:var(--pu);padding:2px 9px;border-radius:12px;font-size:11px;border:0.5px solid #AFA9EC">Arquitecto de infraestructura ✦</span></div>
+    </div>
+    <div id="rd6" style="display:none;background:var(--grl);border-radius:8px;padding:1rem;border:0.5px solid #97C459;margin-bottom:1rem">
+      <div style="font-size:14px;font-weight:500;color:#27500A;margin-bottom:.5rem">Comunidad — Embajador ADM</div>
+      <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.625rem;line-height:1.6">Extiende el impacto del ADM más allá de las paredes del aula: conecta la escuela con empresas, universidades y organismos locales para ampliar oportunidades de aprendizaje.</p>
+      <div style="margin-bottom:.5rem"><strong style="font-size:11px;color:#27500A">Misiones:</strong><br><span style="display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;margin:2px;background:var(--grl);color:#27500A">Alianzas con empresa</span><span style="display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;margin:2px;background:var(--grl);color:#27500A">Eventos comunitarios</span></div>
+      <div><strong style="font-size:11px;color:#27500A">Habilidad desbloqueada:</strong> <span style="background:#fff;color:var(--gr);padding:2px 9px;border-radius:12px;font-size:11px;border:0.5px solid #97C459">Conector ecosistema ✦</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function go(s){document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));document.getElementById(s).classList.add('on')}
+function stab(btn,tab){document.querySelectorAll('.tb').forEach(e=>e.classList.remove('on'));document.querySelectorAll('[id^="t-"]').forEach(e=>e.style.display='none');btn.classList.add('on');document.getElementById(tab).style.display='block'}
+function selrol(el,rd){document.querySelectorAll('.rc').forEach(e=>e.style.opacity='0.5');el.style.opacity='1';document.querySelectorAll('[id^="rd"]').forEach(e=>e.style.display='none');document.getElementById(rd).style.display='block'}
+</script>
