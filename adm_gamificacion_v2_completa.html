@@ -3,165 +3,388 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Transformadores Digitales ADM - Gamificación Completa</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<title>Transformadores Digitales ADM - Gamificación</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.min.css">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#333;line-height:1.6}
-:root{
-  --pu:#534AB7;--pul:#EEEDFE;--pu8:#3C3489;--te:#0F6E56;--tel:#E1F5EE;--bl:#185FA5;
-  --bll:#E6F1FB;--am:#BA7517;--aml:#FAEEDA;--re:#A32D2D;--rel:#FCEBEB;--gr:#639922;--grl:#EAF3DE
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #333;
 }
-.container{max-width:900px;margin:0 auto;padding:15px}
-.header{background:linear-gradient(135deg, var(--pu), var(--bl));color:#fff;padding:25px;border-radius:12px;text-align:center;margin-bottom:20px}
-.header h1{color:#fff;margin-bottom:8px;font-size:28px}
-.header p{opacity:0.95;font-size:15px}
-.xp-display{background:#fff;padding:20px;border-radius:12px;margin-bottom:20px;border:0.5px solid #e0e0e0}
-.xp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.xp-header .label{font-size:12px;color:#666;font-weight:600;text-transform:uppercase}
-.xp-header .value{font-size:24px;font-weight:bold;color:var(--pu)}
-.progress-bar{height:10px;background:#e0e0e0;border-radius:5px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg, var(--pu), var(--bl));transition:width 0.5s}
-.level-info{font-size:12px;color:#666;margin-top:8px;text-align:center}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:20px}
-.stat-card{background:#fff;padding:15px;border-radius:8px;text-align:center;border:0.5px solid #e0e0e0}
-.stat-card .number{font-size:24px;font-weight:bold;color:var(--pu)}
-.stat-card .label{font-size:12px;color:#666;margin-top:5px}
-.section{background:#fff;padding:20px;border-radius:12px;margin-bottom:20px;border:0.5px solid #e0e0e0}
-.section h2{color:var(--pu);margin-bottom:15px;font-size:20px;border-bottom:2px solid var(--pu);padding-bottom:10px}
-.mission-card{border:0.5px solid #e0e0e0;border-radius:8px;padding:15px;margin-bottom:10px;cursor:pointer;transition:all 0.3s}
-.mission-card:hover{border-color:var(--pu);background:#f9f9f9}
-.mission-card.completed{background:var(--grl);border-color:var(--gr)}
-.mission-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:8px}
-.mission-title{font-weight:600;color:#333;flex:1}
-.xp-badge{background:var(--bll);color:#0C447C;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
-.mission-desc{font-size:13px;color:#666;line-height:1.5}
-.mission-status{margin-top:8px;font-size:11px;color:var(--pu);font-weight:600}
-.level-item{display:flex;align-items:center;gap:12px;padding:12px;margin-bottom:8px;background:#f9f9f9;border-radius:8px}
-.level-badge{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;color:#fff;flex-shrink:0}
-.lv1{background:var(--bll);color:var(--bl)}.lv2{background:var(--tel);color:var(--te)}.lv3{background:var(--pul);color:var(--pu)}
-.lv4{background:var(--aml);color:var(--am)}.lv5{background:var(--rel);color:var(--re)}
-.level-name{font-weight:600;color:#333}
-.level-range{font-size:12px;color:#666}
-.badge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px}
-.badge-item{text-align:center;padding:15px;border:0.5px solid #e0e0e0;border-radius:8px;background:#fff;opacity:0.5;transition:all 0.3s}
-.badge-item.unlocked{opacity:1;background:var(--grl);border-color:var(--gr)}
-.badge-icon{font-size:32px;margin-bottom:8px}
-.badge-name{font-size:12px;font-weight:600;color:#333}
-.badge-desc{font-size:11px;color:#666;margin-top:4px}
-.quiz-question{border:0.5px solid #e0e0e0;border-radius:8px;padding:15px;margin-bottom:15px}
-.quiz-q{font-weight:600;color:#333;margin-bottom:12px;font-size:14px}
-.quiz-option{display:block;width:100%;text-align:left;padding:10px;margin-bottom:6px;background:#f9f9f9;border:0.5px solid #e0e0e0;border-radius:6px;cursor:pointer;font-size:13px;transition:all 0.3s}
-.quiz-option:hover{background:var(--pul);border-color:var(--pu)}
-.quiz-option.correct{background:var(--grl);border-color:var(--gr);color:#27500A;font-weight:600}
-.quiz-option.wrong{background:var(--rel);border-color:var(--re);color:#791F1F;font-weight:600}
-.quiz-option:disabled{cursor:default}
-.btn{padding:10px 20px;margin:8px 4px 8px 0;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;transition:all 0.3s}
-.btn-primary{background:var(--pu);color:#fff}
-.btn-primary:hover{opacity:0.85;transform:translateY(-2px)}
-.btn-outline{background:#fff;border:1px solid var(--pu);color:var(--pu)}
-.btn-outline:hover{background:var(--pul)}
-.feedback{padding:12px;border-radius:6px;margin-bottom:12px;display:none;font-size:13px;font-weight:600}
-.feedback.show{display:block}
-.feedback.success{background:var(--grl);color:#27500A;border:1px solid var(--gr)}
-.feedback.error{background:var(--rel);color:#791F1F;border:1px solid var(--re)}
-.nav-buttons{display:flex;justify-content:center;gap:8px;padding-top:15px;border-top:1px solid #e0e0e0;margin-top:15px;flex-wrap:wrap}
-.tab-buttons{display:flex;gap:4px;margin-bottom:15px;border-bottom:1px solid #e0e0e0;flex-wrap:wrap}
-.tab-btn{padding:8px 16px;background:none;border:none;cursor:pointer;font-size:13px;color:#666;border-bottom:2px solid transparent;margin-bottom:-1px}
-.tab-btn.active{color:var(--pu);border-bottom-color:var(--pu);font-weight:600}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.role-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:15px}
-.role-card{border:0.5px solid #e0e0e0;border-radius:8px;padding:12px;text-align:center;cursor:pointer;transition:all 0.3s}
-.role-card:hover{border-color:var(--pu);background:var(--pul)}
-.role-icon{font-size:32px;margin-bottom:6px}
-.role-name{font-size:11px;font-weight:600;color:#333}
-.role-detail{background:var(--pul);border-radius:8px;padding:12px;border:0.5px solid var(--pu);margin-bottom:12px;display:none;font-size:12px}
-.role-detail.show{display:block}
-.role-detail h3{color:var(--pu8);margin-bottom:6px;font-size:13px}
+.container { max-width: 1000px; margin: 0 auto; }
+.header {
+  background: linear-gradient(135deg, #534AB7 0%, #185FA5 100%);
+  color: white;
+  padding: 40px 30px;
+  border-radius: 16px;
+  text-align: center;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.header h1 { font-size: 36px; margin-bottom: 10px; font-weight: 700; }
+.header p { font-size: 16px; opacity: 0.95; }
+.xp-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.xp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.xp-info { font-size: 14px; color: #666; font-weight: 600; }
+.xp-value { font-size: 32px; font-weight: 700; color: #534AB7; }
+.progress-bar {
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #534AB7, #185FA5);
+  transition: width 0.6s ease;
+  border-radius: 10px;
+}
+.level-text { text-align: center; font-size: 13px; color: #666; font-weight: 500; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+.stat-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  border-top: 4px solid #534AB7;
+}
+.stat-number { font-size: 28px; font-weight: 700; color: #534AB7; }
+.stat-label { font-size: 13px; color: #666; margin-top: 8px; font-weight: 600; }
+.section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.section h2 {
+  font-size: 24px;
+  color: #534AB7;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #534AB7;
+  padding-bottom: 12px;
+  font-weight: 700;
+}
+.mission-item {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.mission-item:hover { border-color: #534AB7; background: #f9f9f9; transform: translateX(5px); }
+.mission-item.completed {
+  background: #E1F5EE;
+  border-color: #0F6E56;
+}
+.mission-content { flex: 1; }
+.mission-icon { font-size: 24px; margin-right: 12px; }
+.mission-title { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 5px; }
+.mission-desc { font-size: 13px; color: #666; line-height: 1.5; }
+.mission-xp {
+  background: linear-gradient(135deg, #EEEDFE, #E6F1FB);
+  color: #3C3489;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+.mission-item.completed .mission-xp { background: #C0DD97; color: #27500A; }
+.tab-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.tab-btn.active {
+  color: #534AB7;
+  border-bottom-color: #534AB7;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 15px;
+}
+.role-card {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.role-card:hover { border-color: #534AB7; background: #f9f9f9; transform: scale(1.05); }
+.role-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+.role-name { font-size: 12px; font-weight: 600; color: #333; }
+.role-detail {
+  background: #EEEDFE;
+  border-left: 4px solid #534AB7;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  display: none;
+}
+.role-detail.show { display: block; }
+.role-detail h3 { color: #3C3489; margin-bottom: 8px; font-size: 15px; }
+.role-detail p { font-size: 13px; color: #555; line-height: 1.6; }
+.level-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  border-left: 4px solid #534AB7;
+}
+.level-badge {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #534AB7, #185FA5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.level-info h4 { color: #333; font-size: 15px; margin-bottom: 4px; }
+.level-info p { font-size: 12px; color: #666; }
+.level-info p.current { color: #0F6E56; font-weight: 600; }
+.quiz-container { margin-top: 20px; }
+.quiz-question {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+.quiz-text { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 15px; }
+.quiz-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #f9f9f9;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+.quiz-option:hover { border-color: #534AB7; background: #EEEDFE; }
+.quiz-option.correct { background: #E1F5EE; border-color: #0F6E56; color: #085041; font-weight: 600; }
+.quiz-option.wrong { background: #FCEBEB; border-color: #A32D2D; color: #791F1F; font-weight: 600; }
+.quiz-option:disabled { cursor: default; }
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+}
+.badge-box {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  opacity: 0.4;
+  transition: all 0.3s;
+}
+.badge-box.unlocked {
+  opacity: 1;
+  background: #EAF3DE;
+  border-color: #639922;
+}
+.badge-icon { font-size: 32px; margin-bottom: 8px; }
+.badge-name { font-size: 12px; font-weight: 600; color: #333; margin-bottom: 4px; }
+.badge-desc { font-size: 11px; color: #666; }
+.button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #534AB7, #185FA5);
+  color: white;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(83, 74, 183, 0.3); }
+.btn-outline {
+  background: white;
+  border: 2px solid #534AB7;
+  color: #534AB7;
+}
+.btn-outline:hover { background: #EEEDFE; }
+.feedback {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  display: none;
+  font-weight: 600;
+  animation: slideDown 0.3s;
+}
+@keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.feedback.show { display: block; }
+.feedback.success { background: #E1F5EE; color: #085041; border-left: 4px solid #0F6E56; }
+.feedback.error { background: #FCEBEB; color: #791F1F; border-left: 4px solid #A32D2D; }
+.quiz-progress { margin-bottom: 15px; }
+.quiz-progress-bar { height: 6px; background: #e0e0e0; border-radius: 3px; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, #534AB7, #185FA5); }
+.quiz-progress-text { font-size: 12px; color: #666; margin-top: 5px; }
+.quiz-result {
+  text-align: center;
+  padding: 40px;
+  background: linear-gradient(135deg, #EEEDFE, #E6F1FB);
+  border-radius: 12px;
+}
+.quiz-result-emoji { font-size: 64px; margin-bottom: 15px; }
+.quiz-result-title { font-size: 24px; font-weight: 700; color: #333; margin-bottom: 10px; }
+.quiz-result-score { font-size: 48px; font-weight: 700; color: #534AB7; margin: 20px 0; }
+.button-group { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+.info-box {
+  background: #E6F1FB;
+  border-left: 4px solid #185FA5;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  color: #0C447C;
+  line-height: 1.6;
+}
 </style>
 </head>
 <body>
+
 <div class="container">
+  <!-- HEADER -->
   <div class="header">
     <h1>🚀 Transformadores Digitales ADM</h1>
-    <p>Misión educativa gamificada - Sube de nivel, completa misiones, desbloquea insignias</p>
+    <p>Misión gamificada - Completa retos, sube de nivel y desbloquea insignias</p>
   </div>
 
-  <div class="xp-display">
+  <!-- XP DISPLAY -->
+  <div class="xp-card">
     <div class="xp-header">
-      <span class="label">Progreso Total</span>
-      <span class="value" id="xp-text">0 XP</span>
+      <div class="xp-info">Experiencia Total</div>
+      <div class="xp-value" id="xp-value">0 XP</div>
     </div>
     <div class="progress-bar">
-      <div class="progress-fill" id="xp-bar" style="width:0%"></div>
+      <div class="progress-fill" id="xp-bar" style="width: 0%"></div>
     </div>
-    <div class="level-info" id="level-text">Nivel 1: Explorador Digital</div>
+    <div class="level-text" id="level-text">Nivel 1: Explorador Digital</div>
   </div>
 
-  <div class="stats">
-    <div class="stat-card">
-      <div class="number">8</div>
-      <div class="label">Misiones</div>
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-number">8</div>
+      <div class="stat-label">Misiones</div>
     </div>
-    <div class="stat-card">
-      <div class="number">5</div>
-      <div class="label">Niveles</div>
+    <div class="stat-box">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Niveles</div>
     </div>
-    <div class="stat-card">
-      <div class="number">8</div>
-      <div class="label">Insignias</div>
+    <div class="stat-box">
+      <div class="stat-number">8</div>
+      <div class="stat-label">Insignias</div>
     </div>
-    <div class="stat-card">
-      <div class="number">3000</div>
-      <div class="label">XP Máximo</div>
+    <div class="stat-box">
+      <div class="stat-number">3000</div>
+      <div class="stat-label">XP Máximo</div>
     </div>
   </div>
 
+  <!-- FEEDBACK -->
   <div id="feedback" class="feedback"></div>
 
-  <!-- ETAPA 1 -->
+  <!-- SECCIÓN INFORMACIÓN -->
   <div class="section">
     <h2>📖 Etapa 1: ¿Qué son las ADM?</h2>
+    
     <div class="tab-buttons">
       <button class="tab-btn active" onclick="switchTab(0)">Información</button>
       <button class="tab-btn" onclick="switchTab(1)">Roles</button>
       <button class="tab-btn" onclick="switchTab(2)">Metodología</button>
     </div>
-    
+
     <div class="tab-content active">
-      <p style="margin-bottom:12px">Las <strong>Aulas Digitales Multipropósito (ADM)</strong> son espacios equipados con tecnología interactiva que transforman la enseñanza tradicional en experiencias activas, colaborativas e innovadoras.</p>
-      <p>No son solo laboratorios de computación: son ecosistemas de aprendizaje del siglo XXI que integran:</p>
-      <ul style="margin-left:20px;margin-bottom:12px;margin-top:8px">
-        <li>Dispositivos conectados en red</li>
-        <li>Plataformas educativas digitales</li>
-        <li>Metodologías activas (proyectos, colaboración)</li>
-        <li>Evaluación con analíticas en tiempo real</li>
+      <p style="margin-bottom: 12px;"><strong>Las Aulas Digitales Multipropósito (ADM)</strong> son espacios equipados con tecnología interactiva que transforman la enseñanza tradicional en experiencias activas, colaborativas e innovadoras.</p>
+      <p style="margin-bottom: 12px;">No son solo laboratorios de computación: son <strong>ecosistemas de aprendizaje del siglo XXI</strong> que integran:</p>
+      <ul style="margin-left: 20px; margin-bottom: 12px; margin-top: 8px;">
+        <li>✅ Dispositivos conectados en red</li>
+        <li>✅ Plataformas educativas digitales</li>
+        <li>✅ Metodologías activas (proyectos, colaboración)</li>
+        <li>✅ Evaluación con analíticas en tiempo real</li>
       </ul>
     </div>
 
     <div class="tab-content">
       <div class="role-grid">
-        <div class="role-card" onclick="showRole(this,0)"><span class="role-icon">👩‍🏫</span><span class="role-name">Docente</span></div>
-        <div class="role-card" onclick="showRole(this,1)"><span class="role-icon">🧑‍💻</span><span class="role-name">Estudiante</span></div>
-        <div class="role-card" onclick="showRole(this,2)"><span class="role-icon">🏫</span><span class="role-name">Directivo</span></div>
-        <div class="role-card" onclick="showRole(this,3)"><span class="role-icon">👨‍👩‍👧</span><span class="role-name">Familia</span></div>
-        <div class="role-card" onclick="showRole(this,4)"><span class="role-icon">🛠️</span><span class="role-name">Técnico TI</span></div>
-        <div class="role-card" onclick="showRole(this,5)"><span class="role-icon">🌍</span><span class="role-name">Comunidad</span></div>
+        <div class="role-card" onclick="showRole(this, 0)"><span class="role-icon">👩‍🏫</span><span class="role-name">Docente</span></div>
+        <div class="role-card" onclick="showRole(this, 1)"><span class="role-icon">🧑‍💻</span><span class="role-name">Estudiante</span></div>
+        <div class="role-card" onclick="showRole(this, 2)"><span class="role-icon">🏫</span><span class="role-name">Directivo</span></div>
+        <div class="role-card" onclick="showRole(this, 3)"><span class="role-icon">👨‍👩‍👧</span><span class="role-name">Familia</span></div>
+        <div class="role-card" onclick="showRole(this, 4)"><span class="role-icon">🛠️</span><span class="role-name">Técnico TI</span></div>
+        <div class="role-card" onclick="showRole(this, 5)"><span class="role-icon">🌍</span><span class="role-name">Comunidad</span></div>
       </div>
       <div id="role-detail" class="role-detail"></div>
     </div>
 
     <div class="tab-content">
       <p><strong>7 Fases de implementación:</strong></p>
-      <ol style="margin-left:20px;margin-top:10px">
-        <li>Diagnóstico institucional</li>
-        <li>Planeación pedagógica</li>
-        <li>Formación docente</li>
-        <li>Integración tecnológica</li>
-        <li>Aprendizaje colaborativo</li>
-        <li>Evaluación y seguimiento</li>
-        <li>Innovación y mejora continua</li>
+      <ol style="margin-left: 20px; margin-top: 10px;">
+        <li><strong>Diagnóstico institucional</strong> - Evalúa infraestructura y necesidades</li>
+        <li><strong>Planeación pedagógica</strong> - Define objetivos y selecciona herramientas</li>
+        <li><strong>Formación docente</strong> - Capacita en uso pedagógico de tecnología</li>
+        <li><strong>Integración tecnológica</strong> - Conecta dispositivos y plataformas</li>
+        <li><strong>Aprendizaje colaborativo</strong> - Fomenta trabajo en equipo digital</li>
+        <li><strong>Evaluación y seguimiento</strong> - Mide progreso con analíticas</li>
+        <li><strong>Innovación continua</strong> - Experimenta con nuevas metodologías</li>
       </ol>
     </div>
   </div>
@@ -180,8 +403,8 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#333;line-height:
 
   <!-- QUIZ -->
   <div class="section">
-    <h2>❓ Quiz</h2>
-    <button class="btn btn-primary" onclick="startQuiz()">Iniciar Quiz</button>
+    <h2>❓ Quiz Interactivo</h2>
+    <button class="button btn-primary" onclick="startQuiz()">🎮 Iniciar Quiz</button>
     <div id="quiz-container"></div>
   </div>
 
@@ -191,30 +414,26 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#333;line-height:
     <div class="badge-grid" id="badges-list"></div>
   </div>
 
-  <div class="nav-buttons">
-    <button class="btn btn-primary" onclick="location.reload()">Recargar</button>
-    <button class="btn btn-outline" onclick="resetAll()">Reiniciar Progreso</button>
+  <!-- BOTONES FINALES -->
+  <div style="text-align: center; margin-bottom: 30px;">
+    <button class="button btn-primary" onclick="location.reload()">↻ Recargar</button>
+    <button class="button btn-outline" onclick="resetAll()">🔄 Reiniciar Progreso</button>
   </div>
 </div>
 
 <script>
 // ====== DATOS DEL JUEGO ======
-const gameState = {
-  xp: 0,
-  level: 1,
-  missionsCompleted: [],
-  quizScore: 0
-};
+const gameState = { xp: 0, level: 1, missionsCompleted: [], quizScore: 0 };
 
 const missions = [
   { id: 'm1', icon: '🧭', title: 'Aprende qué son las ADM', desc: 'Lee la información sobre Aulas Digitales Multipropósito', xp: 100 },
-  { id: 'm2', icon: '🎭', title: 'Elige tu rol en ADM', desc: 'Explora los 6 roles principales en la transformación digital', xp: 80 },
-  { id: 'm3', icon: '💡', title: 'Conoce la metodología', desc: 'Estudia las 7 fases de implementación del ADM', xp: 120 },
-  { id: 'm4', icon: '🎓', title: 'Capacítate en herramientas', desc: 'Aprende sobre plataformas y recursos digitales', xp: 150 },
+  { id: 'm2', icon: '🎭', title: 'Descubre los 6 roles del ADM', desc: 'Explora cada uno de los roles en la transformación digital', xp: 80 },
+  { id: 'm3', icon: '💡', title: 'Estudia la metodología ADM', desc: 'Comprende las 7 fases de implementación', xp: 120 },
+  { id: 'm4', icon: '🎓', title: 'Conoce las herramientas', desc: 'Aprende sobre plataformas y recursos digitales educativos', xp: 150 },
   { id: 'm5', icon: '🔧', title: 'Diseña una clase digital', desc: 'Integra tecnología en tu planificación pedagógica', xp: 200 },
-  { id: 'm6', icon: '📊', title: 'Maneja analíticas de aprendizaje', desc: 'Aprende a interpretar datos educativos en tiempo real', xp: 180 },
-  { id: 'm7', icon: '🚀', title: 'Lidera innovación educativa', desc: 'Crea un proyecto que transforme tu institución', xp: 250 },
-  { id: 'm8', icon: '🏅', title: 'Comparte buenas prácticas', desc: 'Documenta y comunica tu experiencia ADM', xp: 220 }
+  { id: 'm6', icon: '📊', title: 'Interpreta analíticas', desc: 'Aprende a usar datos educativos en tiempo real', xp: 180 },
+  { id: 'm7', icon: '🚀', title: 'Lidera la innovación', desc: 'Crea un proyecto transformador en tu institución', xp: 250 },
+  { id: 'm8', icon: '🏅', title: 'Comparte tu experiencia', desc: 'Documenta y comunica tu viaje ADM', xp: 220 }
 ];
 
 const levels = [
@@ -222,53 +441,41 @@ const levels = [
   { num: 2, name: 'Facilitador Tecnológico', min: 301, max: 800 },
   { num: 3, name: 'Innovador Educativo', min: 801, max: 1400 },
   { num: 4, name: 'Líder ADM', min: 1401, max: 2100 },
-  { num: 5, name: 'Maestro de Transformación Digital', min: 2101, max: 3000 }
+  { num: 5, name: 'Maestro Transformador Digital', min: 2101, max: 3000 }
 ];
 
 const badges = [
   { id: 'b1', icon: '🔭', name: 'Primer Paso', desc: 'Aprende sobre ADM', check: () => gameState.missionsCompleted.includes('m1') },
-  { id: 'b2', icon: '🎭', name: 'Descubridor de Roles', desc: 'Explora todos los roles', check: () => gameState.missionsCompleted.includes('m2') },
-  { id: 'b3', icon: '📚', name: 'Estudiante Metodológico', desc: 'Conoce la ruta ADM', check: () => gameState.missionsCompleted.includes('m3') },
-  { id: 'b4', icon: '⚙️', name: 'Técnico Educativo', desc: 'Capacítate en herramientas', check: () => gameState.missionsCompleted.includes('m4') },
-  { id: 'b5', icon: '💡', name: 'Diseñador Digital', desc: 'Diseña tu clase digital', check: () => gameState.missionsCompleted.includes('m5') },
-  { id: 'b6', icon: '📊', name: 'Analista de Datos', desc: 'Domina las analíticas', check: () => gameState.missionsCompleted.includes('m6') },
-  { id: 'b7', icon: '🚀', name: 'Innovador', desc: 'Lidera transformación', check: () => gameState.missionsCompleted.includes('m7') },
-  { id: 'b8', icon: '👑', name: 'Transformador Completo', desc: 'Completa todas las misiones', check: () => gameState.missionsCompleted.length === 8 }
+  { id: 'b2', icon: '🎭', name: 'Descubridor', desc: 'Explora los 6 roles', check: () => gameState.missionsCompleted.includes('m2') },
+  { id: 'b3', icon: '📚', name: 'Metodólogo', desc: 'Estudia la ruta ADM', check: () => gameState.missionsCompleted.includes('m3') },
+  { id: 'b4', icon: '⚙️', name: 'Técnico', desc: 'Conoce herramientas', check: () => gameState.missionsCompleted.includes('m4') },
+  { id: 'b5', icon: '💡', name: 'Diseñador', desc: 'Crea clases digitales', check: () => gameState.missionsCompleted.includes('m5') },
+  { id: 'b6', icon: '📊', name: 'Analista', desc: 'Domina analíticas', check: () => gameState.missionsCompleted.includes('m6') },
+  { id: 'b7', icon: '🚀', name: 'Innovador', desc: 'Lidera cambio', check: () => gameState.missionsCompleted.includes('m7') },
+  { id: 'b8', icon: '👑', name: 'Maestro', desc: 'Completa todo', check: () => gameState.missionsCompleted.length === 8 }
 ];
 
 const quizData = [
   { q: '¿Qué significa ADM?', opts: ['Aula Digital Multipropósito', 'Ambiente Digital Media', 'Asistente Docente Móvil'], correct: 0 },
-  { q: '¿Cuántas fases tiene la implementación ADM?', opts: ['5', '7', '9'], correct: 1 },
+  { q: '¿Cuántas fases tiene la implementación ADM?', opts: ['5 fases', '7 fases', '10 fases'], correct: 1 },
   { q: '¿Cuál es el objetivo principal del ADM?', opts: ['Reemplazar docentes', 'Transformar la experiencia educativa', 'Solo usar computadores'], correct: 1 },
-  { q: '¿Quién es responsable de la formación docente en ADM?', opts: ['Solo el directivo', 'Equipo multidisciplinario', 'El técnico TI'], correct: 1 },
-  { q: '¿Qué competencia desarrolla ADM?', opts: ['Memorización', 'Pensamiento crítico y colaboración', 'Escritura manual'], correct: 1 }
+  { q: '¿Qué competencia desarrolla un ADM?', opts: ['Memorización', 'Pensamiento crítico y colaboración', 'Escritura manual'], correct: 1 },
+  { q: '¿Cuál es el rol del docente en ADM?', opts: ['Transmitir información', 'Facilitar experiencias de aprendizaje innovadoras', 'Supervisar el laboratorio'], correct: 1 }
 ];
 
 const roles = [
-  { title: 'Docente', desc: 'Diseña experiencias innovadoras integrando ADM con intención pedagógica clara.' },
-  { title: 'Estudiante', desc: 'Protagonista del aprendizaje que explora, crea proyectos y desarrolla competencias futuro.' },
-  { title: 'Directivo', desc: 'Líder que garantiza condiciones institucionales para el funcionamiento del ADM.' },
-  { title: 'Familia', desc: 'Aliado que acompaña y apoya el aprendizaje digital desde casa.' },
-  { title: 'Técnico TI', desc: 'Guardián digital que mantiene operativa la infraestructura tecnológica.' },
-  { title: 'Comunidad', desc: 'Embajador que conecta la escuela con empresa, universidades y organismos locales.' }
+  { title: 'Docente', desc: 'Facilita experiencias innovadoras integrando ADM con intención pedagógica clara. Es el eje de la transformación en el aula.' },
+  { title: 'Estudiante', desc: 'Protagonista del aprendizaje que explora, crea proyectos y colabora para desarrollar competencias del futuro.' },
+  { title: 'Directivo', desc: 'Líder que garantiza condiciones institucionales óptimas: presupuesto, políticas y alianzas estratégicas.' },
+  { title: 'Familia', desc: 'Aliado que acompaña el aprendizaje digital desde casa y participa en proyectos escolares.' },
+  { title: 'Técnico TI', desc: 'Guardián que mantiene operativa la infraestructura: redes, dispositivos y plataformas.' },
+  { title: 'Comunidad', desc: 'Embajador que conecta la escuela con empresas, universidades y organismos locales.' }
 ];
 
 // ====== ALMACENAMIENTO ======
-function saveGame() {
-  localStorage.setItem('adm-gamificacion', JSON.stringify(gameState));
-}
-
-function loadGame() {
-  const saved = localStorage.getItem('adm-gamificacion');
-  if (saved) Object.assign(gameState, JSON.parse(saved));
-}
-
-function resetAll() {
-  if (confirm('¿Reiniciar todo el progreso?')) {
-    localStorage.removeItem('adm-gamificacion');
-    location.reload();
-  }
-}
+function saveGame() { localStorage.setItem('adm-game', JSON.stringify(gameState)); }
+function loadGame() { const saved = localStorage.getItem('adm-game'); if(saved) Object.assign(gameState, JSON.parse(saved)); }
+function resetAll() { if(confirm('¿Reiniciar todo el progreso?')) { localStorage.removeItem('adm-game'); location.reload(); } }
 
 // ====== SISTEMA XP ======
 function addXP(amount) {
@@ -277,62 +484,54 @@ function addXP(amount) {
   updateLevel();
   saveGame();
   updateUI();
-  
-  if (gameState.level > oldLevel) {
-    showFeedback(`¡LEVEL UP! ${levels[gameState.level - 1].name}`, 'success');
-  } else {
-    showFeedback(`+${amount} XP`, 'success');
-  }
+  if(gameState.level > oldLevel) showFeedback(`¡LEVEL UP! ${levels[gameState.level - 1].name}`, 'success');
+  else showFeedback(`+${amount} XP`, 'success');
 }
 
 function updateLevel() {
-  for (let i = levels.length - 1; i >= 0; i--) {
-    if (gameState.xp >= levels[i].min) {
-      gameState.level = i + 1;
-      break;
-    }
+  for(let i = levels.length - 1; i >= 0; i--) {
+    if(gameState.xp >= levels[i].min) { gameState.level = i + 1; break; }
   }
 }
 
 // ====== INTERFAZ ======
 function updateUI() {
-  const levelInfo = levels[gameState.level - 1];
   const xpPercent = (gameState.xp / 3000) * 100;
-  
-  document.getElementById('xp-text').textContent = `${gameState.xp} / 3000 XP`;
+  const levelInfo = levels[gameState.level - 1];
+  document.getElementById('xp-value').textContent = `${gameState.xp} / 3000 XP`;
   document.getElementById('xp-bar').style.width = xpPercent + '%';
   document.getElementById('level-text').textContent = `Nivel ${gameState.level}: ${levelInfo.name}`;
-  
   renderMissions();
   renderLevels();
   renderBadges();
 }
 
 function renderMissions() {
-  const html = missions.map(m => `
-    <div class="mission-card ${gameState.missionsCompleted.includes(m.id) ? 'completed' : ''}" 
-         ${!gameState.missionsCompleted.includes(m.id) ? `onclick="completeMission('${m.id}')"` : ''}>
-      <div class="mission-header">
-        <div class="mission-title">${m.icon} ${m.title}</div>
-        <span class="xp-badge">${gameState.missionsCompleted.includes(m.id) ? '✓' : `+${m.xp}`}</span>
+  const html = missions.map(m => {
+    const completed = gameState.missionsCompleted.includes(m.id);
+    return `
+      <div class="mission-item ${completed ? 'completed' : ''}" ${!completed ? `onclick="completeMission('${m.id}')"` : ''}>
+        <span class="mission-icon">${m.icon}</span>
+        <div class="mission-content">
+          <div class="mission-title">${m.title}</div>
+          <div class="mission-desc">${m.desc}</div>
+        </div>
+        <span class="mission-xp">${completed ? '✅' : `+${m.xp}`}</span>
       </div>
-      <div class="mission-desc">${m.desc}</div>
-      ${gameState.missionsCompleted.includes(m.id) ? '<div class="mission-status">✓ Completada</div>' : ''}
-    </div>
-  `).join('');
+    `;
+  }).join('');
   document.getElementById('missions-list').innerHTML = html;
 }
 
 function renderLevels() {
   const html = levels.map(lv => {
     const isActive = gameState.level === lv.num;
-    const className = `level-badge lv${lv.num}`;
     return `
       <div class="level-item">
-        <div class="${className}">${lv.num}</div>
-        <div>
-          <div class="level-name">${lv.name}</div>
-          <div class="level-range">${lv.min} - ${lv.max} XP ${isActive ? '(Actual)' : ''}</div>
+        <div class="level-badge">${lv.num}</div>
+        <div class="level-info">
+          <h4>${lv.name}</h4>
+          <p>${lv.min} - ${lv.max} XP ${isActive ? '<span class="current">← TÚ ESTÁS AQUÍ</span>' : ''}</p>
         </div>
       </div>
     `;
@@ -342,7 +541,7 @@ function renderLevels() {
 
 function renderBadges() {
   const html = badges.map(b => `
-    <div class="badge-item ${b.check() ? 'unlocked' : ''}">
+    <div class="badge-box ${b.check() ? 'unlocked' : ''}">
       <div class="badge-icon">${b.icon}</div>
       <div class="badge-name">${b.name}</div>
       <div class="badge-desc">${b.desc}</div>
@@ -352,11 +551,10 @@ function renderBadges() {
 }
 
 function completeMission(missionId) {
-  if (gameState.missionsCompleted.includes(missionId)) {
-    showFeedback('Ya completaste esta misión', 'error');
+  if(gameState.missionsCompleted.includes(missionId)) {
+    showFeedback('❌ Ya completaste esta misión', 'error');
     return;
   }
-  
   const mission = missions.find(m => m.id === missionId);
   gameState.missionsCompleted.push(missionId);
   addXP(mission.xp);
@@ -365,7 +563,7 @@ function completeMission(missionId) {
 function showFeedback(msg, type) {
   const fb = document.getElementById('feedback');
   fb.textContent = msg;
-  fb.className = `feedback show ${type === 'success' ? 'success' : 'error'}`;
+  fb.className = `feedback show ${type}`;
   setTimeout(() => fb.classList.remove('show'), 3000);
 }
 
@@ -385,8 +583,7 @@ function showRole(el, idx) {
 }
 
 // ====== QUIZ ======
-let quizIndex = 0;
-let quizScore = 0;
+let quizIndex = 0, quizScore = 0;
 
 function startQuiz() {
   quizIndex = 0;
@@ -396,14 +593,17 @@ function startQuiz() {
 
 function renderQuizQuestion() {
   const container = document.getElementById('quiz-container');
-  
-  if (quizIndex >= quizData.length) {
+  if(quizIndex >= quizData.length) {
+    const percent = Math.round((quizScore / quizData.length) * 100);
     container.innerHTML = `
-      <div style="text-align:center;padding:30px;background:#f9f9f9;border-radius:8px;margin-top:15px">
-        <div style="font-size:48px;margin-bottom:15px">🎉</div>
-        <div style="font-size:20px;font-weight:bold;margin-bottom:10px">¡Quiz Completado!</div>
-        <div style="font-size:32px;color:var(--pu);font-weight:bold;margin:20px 0">${quizScore} / ${quizData.length}</div>
-        <button class="btn btn-primary" onclick="startQuiz()">Intentar de nuevo</button>
+      <div class="quiz-result">
+        <div class="quiz-result-emoji">🎉</div>
+        <div class="quiz-result-title">¡Quiz Completado!</div>
+        <div class="quiz-result-score">${quizScore} / ${quizData.length}</div>
+        <div style="font-size: 18px; color: #534AB7; margin-bottom: 20px;"><strong>${percent}% Correcto</strong></div>
+        <div class="button-group">
+          <button class="button btn-primary" onclick="startQuiz()">🔄 Intentar de Nuevo</button>
+        </div>
       </div>
     `;
     gameState.quizScore = quizScore;
@@ -411,48 +611,33 @@ function renderQuizQuestion() {
     addXP(xpGanado);
     return;
   }
-  
   const q = quizData[quizIndex];
   const progress = Math.round(((quizIndex) / quizData.length) * 100);
-  
   container.innerHTML = `
-    <div style="margin-top:15px">
-      <div style="font-size:12px;color:#666;margin-bottom:8px">Pregunta ${quizIndex + 1} / ${quizData.length}</div>
-      <div class="progress-bar" style="height:6px">
-        <div class="progress-fill" style="width:${progress}%"></div>
+    <div class="quiz-progress">
+      <div style="font-size: 12px; color: #666; margin-bottom: 6px;">Pregunta ${quizIndex + 1} / ${quizData.length}</div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" style="width: ${progress}%"></div>
       </div>
     </div>
     <div class="quiz-question">
-      <div class="quiz-q">${q.q}</div>
-      ${q.opts.map((o, i) => `
-        <button class="quiz-option" onclick="answerQuiz(${i}, ${q.correct})">${o}</button>
-      `).join('')}
+      <div class="quiz-text">❓ ${q.q}</div>
+      ${q.opts.map((o, i) => `<button class="quiz-option" onclick="answerQuiz(${i}, ${q.correct})">${o}</button>`).join('')}
     </div>
   `;
 }
 
 function answerQuiz(chosen, correct) {
-  if (chosen === correct) {
-    quizScore++;
-    document.querySelectorAll('.quiz-option')[chosen].classList.add('correct');
-  } else {
-    document.querySelectorAll('.quiz-option')[chosen].classList.add('wrong');
-    document.querySelectorAll('.quiz-option')[correct].classList.add('correct');
-  }
-  
+  if(chosen === correct) quizScore++;
+  document.querySelectorAll('.quiz-option')[chosen].classList.add(chosen === correct ? 'correct' : 'wrong');
+  document.querySelectorAll('.quiz-option')[correct].classList.add('correct');
   document.querySelectorAll('.quiz-option').forEach(o => o.disabled = true);
-  
-  setTimeout(() => {
-    quizIndex++;
-    renderQuizQuestion();
-  }, 1500);
+  setTimeout(() => { quizIndex++; renderQuizQuestion(); }, 1500);
 }
 
 // ====== INICIALIZACIÓN ======
-window.addEventListener('load', () => {
-  loadGame();
-  updateUI();
-});
+window.addEventListener('load', () => { loadGame(); updateUI(); });
 </script>
+
 </body>
 </html>
